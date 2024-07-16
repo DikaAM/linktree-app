@@ -1,14 +1,19 @@
 "use client";
 
+import { signIn } from "next-auth/react";
 import { useState } from "react";
 
 export default function HeroForm() {
-  function handleSubmit(evnt) {
+  async function handleSubmit(evnt) {
     evnt.preventDefault();
     const form = evnt.target;
     const input = form.querySelector("input");
     const username = input.value;
     console.log(username);
+    if (username.length > 0) {
+      window.localStorage.setItem("desiredUsername", username);
+      await signIn("google");
+    }
   }
   return (
     <form
