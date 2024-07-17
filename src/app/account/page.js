@@ -2,6 +2,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]/route";
 import { redirect } from "next/navigation";
 import RightIcon from "@/components/icons/RightIcon";
+import grabUsername from "../action/grabUsername";
 
 export default async function AccountPage({ searchParams }) {
   const session = await getServerSession(authOptions);
@@ -11,13 +12,14 @@ export default async function AccountPage({ searchParams }) {
   }
   return (
     <div>
-      <form>
+      <form action={grabUsername}>
         <h1 className="text-4xl font-bold text-center mb-2">
           Grab your username
         </h1>
         <p className="text-center mb-6 text-gray-500">Choose your username</p>
         <div className="max-w-xs mx-auto">
           <input
+            name="username"
             className="block p-2 mx-auto border w-full mb-2 text-center"
             defaultValue={desiredUsername}
             type="text"
